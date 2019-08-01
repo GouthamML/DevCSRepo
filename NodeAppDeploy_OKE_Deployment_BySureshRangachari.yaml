@@ -1,20 +1,20 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: NodeAppDeploy_OKE_Deployment_BySureshRangachari
+  name: nodeexpressapp
 spec:
   selector:
     matchLabels:
-      app: NodeAppDeploy_OKE_SureshRangachari
+      app: nodeexpressapp
   replicas: 1 # deployment runs 1 pods matching the template
   template: # create pods using pod definition in this template
     metadata:
       labels:
-        app: NodeAppDeploy_OKE_Deployment
+        app: nodeexpressapp
     spec:
       containers:
-      - name: NodeAppDeploy_OKE_SureshRangachari
-        image: iad.ocir.io/orasenatdhubsblue02/okeasset/NodeAppDeploy_OKE_SureshRangachari:1.0
+      - name: nodeexpressapp
+        image: iad.ocir.io/orasenatdhubsblue02/okeasset/nodeexpressapp:1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000 #Endpoint is at port 80 in the container
@@ -22,11 +22,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: NodeAppDeploy_OKE_SureshRangachariservice
+  name: nodeexpressappservice
 spec:
   ports:
   - port: 3000
     protocol: TCP
   selector:
-    app: NodeAppDeploy_OKE_SureshRangachari
+    app: nodeexpressapp
   type: LoadBalancer
